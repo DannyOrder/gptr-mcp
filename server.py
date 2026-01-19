@@ -15,7 +15,22 @@ from fastapi.responses import JSONResponse
 from fastmcp import FastMCP
 from gpt_researcher import GPTResearcher
 
-# Load environment variables
+# Override environment variables for NVIDIA API and DeepSeek model
+# This only affects this Python process, not the shell/system environment
+os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_BASE_URL"] = "https://integrate.api.nvidia.com/v1/chat/completions"
+
+# Set model configurations to use DeepSeek via NVIDIA API
+# Format: <llm_provider>:<llm_model> where provider is 'openai' for NVIDIA API
+os.environ["FAST_LLM"] = "openai:deepseek-ai/deepseek-v3.2"
+os.environ["SMART_LLM"] = "openai:deepseek-ai/deepseek-v3.2"
+os.environ["STRATEGIC_LLM"] = "openai:deepseek-ai/deepseek-v3.2"
+os.environ["EMBEDDING"] = "openai:text-embedding-3-small"
+
+# Set DeepSeek API key (if needed)
+os.environ["DEEPSEEK_API_KEY"] = "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"
+
+# Load environment variables (will use overridden values)
 load_dotenv()
 
 from utils import (
